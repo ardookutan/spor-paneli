@@ -3,42 +3,84 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
+<meta name="theme-color" content="#0b1220">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Spor Panelim</title>
 <style>
-:root{--bg:#f4f6f8;--card:#fff;--text:#111827;--muted:#6b7280;--line:#e5e7eb;--dark:#111827;--soft:#eef1f4;--good:#15803d;--red:#dc2626}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-.app{max-width:980px;margin:auto;padding:16px 12px 90px}
-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
-h1{margin:0;font-size:26px}h2{margin:0 0 8px;font-size:19px}h3{margin:0;font-size:16px}.sub{font-size:13px;color:var(--muted)}
+:root{
+ --bg:#f4f6f8;--card:#fff;--text:#101828;--muted:#667085;--line:#e4e7ec;
+ --dark:#0b1220;--soft:#eef2f6;--good:#15803d;--red:#b42318;--blue:#175cd3;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input,select,textarea{font:inherit}
 button{border:0;border-radius:12px;padding:11px 14px;font-weight:800;background:var(--dark);color:#fff;cursor:pointer}
-button.secondary{background:var(--soft);color:var(--text)}button.danger{background:#fee2e2;color:var(--red)}
-.tabs{display:flex;gap:6px;overflow:auto;background:var(--card);padding:6px;border-radius:15px;margin-bottom:14px;border:1px solid var(--line)}
-.tab{white-space:nowrap;background:transparent;color:var(--muted);padding:10px 12px}.tab.active{background:var(--dark);color:#fff}
-section.hidden{display:none!important}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:13px;box-shadow:0 2px 9px #00000008}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.stat{background:var(--soft);border-radius:14px;padding:12px}.stat b{display:block;font-size:21px}.stat span{font-size:11px;color:var(--muted)}
-.row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.row2{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+button:active{transform:scale(.98)}
+button.secondary{background:var(--soft);color:var(--text)}
+button.danger{background:#fee4e2;color:var(--red)}
+button.ghost{background:transparent;color:var(--text)}
+button.small{padding:8px 10px;font-size:12px}
+.app{max-width:1050px;margin:auto;padding:16px 12px 100px}
+header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+h1{margin:0;font-size:26px;letter-spacing:-.5px}h2{margin:0 0 8px;font-size:19px}h3{margin:0;font-size:16px}
+.sub{font-size:13px;color:var(--muted)}
+.tabs{display:flex;gap:6px;overflow:auto;background:var(--card);padding:6px;border-radius:15px;margin-bottom:14px;border:1px solid var(--line);position:sticky;top:8px;z-index:5}
+.tab{white-space:nowrap;background:transparent;color:var(--muted);padding:10px 12px}
+.tab.active{background:var(--dark);color:#fff}
+section.hidden{display:none!important}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:13px;box-shadow:0 2px 10px #00000008}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.stat{background:var(--soft);border-radius:14px;padding:12px}
+.stat b{display:block;font-size:21px}.stat span{font-size:11px;color:var(--muted)}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.row4{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.row2{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
 label{display:block;font-size:11px;color:var(--muted);font-weight:800;margin:9px 0 4px}
-input,select{width:100%;padding:11px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--text);font-size:15px}
+input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--text);font-size:15px}
+textarea{min-height:75px;resize:vertical}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.exercise{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.exerciseHead{display:flex;justify-content:space-between;align-items:center}
-.setrow{display:grid;grid-template-columns:28px 1fr 1fr 36px;gap:6px;align-items:center;margin-top:7px}.setno{text-align:center;color:var(--muted);font-size:12px}
-.workoutHead,.runHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.date{font-size:12px;color:var(--muted);margin-top:3px}
-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:9px}th,td{text-align:left;padding:7px;border-bottom:1px solid var(--line);vertical-align:top}
+.exercise{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.exerciseHead{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.setrow{display:grid;grid-template-columns:28px 1fr 1fr 36px;gap:6px;align-items:center;margin-top:7px}
+.setno{text-align:center;color:var(--muted);font-size:12px}
+.workoutHead,.runHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.date{font-size:12px;color:var(--muted);margin-top:3px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:9px}
+th,td{text-align:left;padding:7px;border-bottom:1px solid var(--line);vertical-align:top}
 .badge{display:inline-block;padding:5px 8px;border-radius:9px;background:var(--soft);font-size:11px;color:var(--muted)}
-.runGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.runStat{background:var(--soft);border-radius:12px;padding:11px}.runStat b{display:block;font-size:19px}.runStat span{font-size:10px;color:var(--muted)}
-.progressItem{padding:11px 0;border-bottom:1px solid var(--line)}.progressItem:last-child{border-bottom:0}.progressHead{display:flex;justify-content:space-between;font-weight:800}.progressSub{font-size:12px;color:var(--muted);margin-top:4px}
-.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.day{min-height:62px;background:var(--soft);border-radius:10px;padding:6px;font-size:11px}.day b{display:block;margin-bottom:4px}.dot{display:inline-block;margin-right:3px}
-canvas{width:100%;height:220px;background:#fafafa;border-radius:12px}
+.runGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.runStat{background:var(--soft);border-radius:12px;padding:11px}
+.runStat b{display:block;font-size:19px}.runStat span{font-size:10px;color:var(--muted)}
+.progressItem{padding:11px 0;border-bottom:1px solid var(--line)}
+.progressItem:last-child{border-bottom:0}
+.progressHead{display:flex;justify-content:space-between;gap:10px;font-weight:800}
+.progressSub{font-size:12px;color:var(--muted);margin-top:4px}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.day{min-height:62px;background:var(--soft);border-radius:10px;padding:6px;font-size:11px}
+.day.today{outline:2px solid var(--dark)}.day b{display:block;margin-bottom:4px}
 .empty{text-align:center;color:var(--muted);padding:25px 10px}
-@media(max-width:650px){.grid{grid-template-columns:repeat(2,1fr)}.row{grid-template-columns:1fr 1fr}.row2{grid-template-columns:1fr}.runGrid{grid-template-columns:repeat(2,1fr)}h1{font-size:23px}.tab{padding:9px 10px}.setrow{grid-template-columns:25px 1fr 1fr 34px}}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.toolbar input{flex:1;min-width:180px}
+.kpi{font-size:28px;font-weight:900;letter-spacing:-1px}
+.notice{padding:10px 12px;border-radius:12px;background:#f0f9ff;color:#175cd3;font-size:12px;margin-top:10px}
+canvas{width:100%;height:240px;background:#fafafa;border-radius:12px}
+footer{text-align:center;color:var(--muted);font-size:11px;margin-top:20px}
+hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+@media(max-width:700px){
+ .grid{grid-template-columns:repeat(2,1fr)}.row,.row4{grid-template-columns:1fr 1fr}
+ .row2{grid-template-columns:1fr}.runGrid{grid-template-columns:repeat(2,1fr)}
+ h1{font-size:23px}.tab{padding:9px 10px}.setrow{grid-template-columns:25px 1fr 1fr 34px}
+}
+@media(max-width:430px){.row,.row4{grid-template-columns:1fr}.app{padding-left:9px;padding-right:9px}}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
-<div><h1>🏆 Spor Panelim</h1><div class="sub">Ağırlık + Koşu + Bisiklet + Yüzme</div></div>
-<button onclick="showTab('add')">＋ Ekle</button>
+  <div><h1>🏆 Spor Panelim</h1><div class="sub">Ağırlık + Koşu + Bisiklet + Yüzme</div></div>
+  <button onclick="openAddMenu()">＋ Ekle</button>
 </header>
 
 <nav class="tabs">
@@ -49,232 +91,449 @@ canvas{width:100%;height:220px;background:#fafafa;border-radius:12px}
 <button class="tab" id="t-swimming" onclick="showTab('swimming')">🏊 Yüzme</button>
 <button class="tab" id="t-history" onclick="showTab('history')">Geçmiş</button>
 <button class="tab" id="t-progress" onclick="showTab('progress')">📊 Gelişim</button>
+<button class="tab" id="t-tools" onclick="showTab('tools')">⚙️ Araçlar</button>
 </nav>
 
 <section id="dashboard">
-<div class="grid">
-<div class="stat"><b id="statWorkouts">0</b><span>🏋️ Ağırlık</span></div>
-<div class="stat"><b id="statRunKm">0</b><span>🏃 Koşu km</span></div>
-<div class="stat"><b id="statBikeKm">0</b><span>🚴 Bisiklet km</span></div>
-<div class="stat"><b id="statSwimKm">0</b><span>🏊 Yüzme km</span></div>
-</div>
-<div class="card" style="margin-top:13px"><h2>Bu hafta</h2><div class="runGrid" id="weekStats"></div></div>
-<div class="card"><h2>Son aktiviteler</h2><div id="latestActivities"></div></div>
-<div class="card"><h2>📅 Aktivite takvimi</h2><div class="sub" style="margin-bottom:10px">Kayıtlı aktivitelerin günlere göre görünümü.</div><div class="calendar" id="calendar"></div></div>
+  <div class="grid">
+    <div class="stat"><b id="statWorkouts">0</b><span>🏋️ Ağırlık antrenmanı</span></div>
+    <div class="stat"><b id="statRunKm">0</b><span>🏃 Toplam koşu km</span></div>
+    <div class="stat"><b id="statBikeKm">0</b><span>🚴 Toplam bisiklet km</span></div>
+    <div class="stat"><b id="statSwimKm">0</b><span>🏊 Toplam yüzme km</span></div>
+  </div>
+  <div class="card" style="margin-top:13px">
+    <h2>Bu hafta</h2><div class="runGrid" id="weekStats"></div>
+  </div>
+  <div class="card">
+    <h2>Son aktiviteler</h2><div id="latestActivities"></div>
+  </div>
+  <div class="card">
+    <h2>📅 Aktivite takvimi</h2>
+    <div class="sub" style="margin-bottom:10px">Kayıtlı aktiviteleri gün gün gösterir.</div>
+    <div class="calendar" id="calendar"></div>
+  </div>
 </section>
 
 <section id="add" class="hidden">
 <div class="card">
-<h2>🏋️ Yeni ağırlık antrenmanı</h2>
-<div class="row">
-<div><label>Tarih</label><input type="date" id="date"></div>
-<div><label>Bölge</label><input id="muscle" placeholder="Sırt + Biceps"></div>
-<div><label>Not</label><input id="note" placeholder="İyi geçti"></div>
-</div>
-<div id="exerciseList"></div>
-<div class="actions"><button class="secondary" onclick="addExercise()">＋ Hareket</button><button onclick="saveWorkout()">💾 Kaydet</button><button class="secondary" onclick="resetWorkoutForm()">Temizle</button></div>
+  <h2>🏋️ Yeni ağırlık antrenmanı</h2>
+  <div class="row">
+    <div><label>Tarih</label><input type="date" id="date"></div>
+    <div><label>Bölge</label><input id="muscle" placeholder="Sırt + Biceps"></div>
+    <div><label>Not</label><input id="note" placeholder="İyi geçti"></div>
+  </div>
+  <div id="exerciseList"></div>
+  <div class="actions">
+    <button class="secondary" onclick="addExercise()">＋ Hareket</button>
+    <button onclick="saveWorkout()">💾 Kaydet</button>
+    <button class="secondary" onclick="resetWorkoutForm()">Temizle</button>
+  </div>
 </div>
 </section>
 
 <section id="running" class="hidden">
 <div class="card">
-<h2>🏃 Koşu ekle</h2>
-<div class="row">
-<div><label>Tarih</label><input type="date" id="runDate"></div>
-<div><label>Mesafe (km)</label><input type="number" step="0.01" id="runDistance" placeholder="10.07"></div>
-<div><label>Süre</label><input id="runDuration" placeholder="01:01:14"></div>
-<div><label>Tempo (dk/km)</label><input id="runPace" placeholder="06:04"></div>
-<div><label>Kalori</label><input type="number" id="runCalories" placeholder="655"></div>
-<div><label>Ortalama nabız</label><input type="number" id="runAvgHr" placeholder="Opsiyonel"></div>
-<div><label>Maksimum nabız</label><input type="number" id="runMaxHr" placeholder="Opsiyonel"></div>
-<div><label>Koşu türü</label><input id="runType" placeholder="Easy / Tempo / Long Run"></div>
-<div><label>Not</label><input id="runNote" placeholder="Antalya sahil koşusu"></div>
-</div>
-<div class="actions"><button onclick="saveRun()">💾 Koşuyu kaydet</button><button class="secondary" onclick="resetRunForm()">Temizle</button></div>
+  <h2>🏃 Koşu ekle</h2>
+  <div class="row">
+    <div><label>Tarih</label><input type="date" id="runDate"></div>
+    <div><label>Mesafe (km)</label><input type="number" step="0.01" min="0" id="runDistance" placeholder="10.07"></div>
+    <div><label>Süre</label><input id="runDuration" placeholder="01:01:14"></div>
+    <div><label>Tempo (dk/km)</label><input id="runPace" placeholder="Otomatik hesaplanır"></div>
+    <div><label>Kalori</label><input type="number" min="0" id="runCalories" placeholder="655"></div>
+    <div><label>Ortalama nabız</label><input type="number" min="0" id="runAvgHr" placeholder="Opsiyonel"></div>
+    <div><label>Maksimum nabız</label><input type="number" min="0" id="runMaxHr" placeholder="Opsiyonel"></div>
+    <div><label>Koşu türü</label><input id="runType" placeholder="Easy / Tempo / Long Run"></div>
+    <div><label>Not</label><input id="runNote" placeholder="Antalya sahil koşusu"></div>
+  </div>
+  <div class="notice">Süre ve mesafeyi girersen tempo otomatik hesaplanır. İstersen elle de değiştirebilirsin.</div>
+  <div class="actions"><button onclick="saveRun()">💾 Koşuyu kaydet</button><button class="secondary" onclick="resetRunForm()">Temizle</button></div>
 </div>
 <div class="card"><h2>🏃 Koşu geçmişi</h2><div id="runHistory"></div></div>
 </section>
 
 <section id="cycling" class="hidden">
 <div class="card">
-<h2>🚴 Bisiklet ekle</h2>
-<div class="row">
-<div><label>Tarih</label><input type="date" id="bikeDate"></div>
-<div><label>Mesafe (km)</label><input type="number" step="0.01" id="bikeDistance" placeholder="40"></div>
-<div><label>Süre</label><input id="bikeDuration" placeholder="01:30:00"></div>
-<div><label>Ortalama hız (km/s)</label><input id="bikeSpeed" type="number" step="0.1" placeholder="26.5"></div>
-<div><label>Kalori</label><input id="bikeCalories" type="number"></div>
-<div><label>Ortalama nabız</label><input id="bikeAvgHr" type="number"></div>
-<div><label>Elevasyon (m)</label><input id="bikeElevation" type="number"></div>
-<div><label>Not</label><input id="bikeNote" placeholder="Bisiklet antrenmanı"></div>
-</div>
-<div class="actions"><button onclick="saveBike()">💾 Bisikleti kaydet</button><button class="secondary" onclick="resetBikeForm()">Temizle</button></div>
+  <h2>🚴 Bisiklet ekle</h2>
+  <div class="row">
+    <div><label>Tarih</label><input type="date" id="bikeDate"></div>
+    <div><label>Mesafe (km)</label><input type="number" step="0.01" min="0" id="bikeDistance" placeholder="40"></div>
+    <div><label>Süre</label><input id="bikeDuration" placeholder="01:30:00"></div>
+    <div><label>Ortalama hız (km/s)</label><input id="bikeSpeed" type="number" step="0.1" min="0" placeholder="Otomatik hesaplanır"></div>
+    <div><label>Kalori</label><input id="bikeCalories" type="number" min="0"></div>
+    <div><label>Ortalama nabız</label><input id="bikeAvgHr" type="number" min="0"></div>
+    <div><label>Elevasyon (m)</label><input id="bikeElevation" type="number" min="0"></div>
+    <div><label>Not</label><input id="bikeNote" placeholder="Bisiklet antrenmanı"></div>
+  </div>
+  <div class="notice">Mesafe ve süre girilirse ortalama hız otomatik hesaplanır.</div>
+  <div class="actions"><button onclick="saveBike()">💾 Bisikleti kaydet</button><button class="secondary" onclick="resetBikeForm()">Temizle</button></div>
 </div>
 <div class="card"><h2>🚴 Bisiklet geçmişi</h2><div id="bikeHistory"></div></div>
 </section>
 
 <section id="swimming" class="hidden">
 <div class="card">
-<h2>🏊 Yüzme ekle</h2>
-<div class="row">
-<div><label>Tarih</label><input type="date" id="swimDate"></div>
-<div><label>Mesafe (km)</label><input type="number" step="0.01" id="swimDistance" placeholder="2"></div>
-<div><label>Süre</label><input id="swimDuration" placeholder="00:45:00"></div>
-<div><label>Havuz uzunluğu (m)</label><input id="swimPool" type="number" placeholder="25"></div>
-<div><label>Stil</label><input id="swimStyle" placeholder="Serbest"></div>
-<div><label>Kalori</label><input id="swimCalories" type="number"></div>
-<div><label>Not</label><input id="swimNote" placeholder="Yüzme antrenmanı"></div>
-</div>
-<div class="actions"><button onclick="saveSwim()">💾 Yüzmeyi kaydet</button><button class="secondary" onclick="resetSwimForm()">Temizle</button></div>
+  <h2>🏊 Yüzme ekle</h2>
+  <div class="row">
+    <div><label>Tarih</label><input type="date" id="swimDate"></div>
+    <div><label>Mesafe (km)</label><input type="number" step="0.01" min="0" id="swimDistance" placeholder="2"></div>
+    <div><label>Süre</label><input id="swimDuration" placeholder="00:45:00"></div>
+    <div><label>Havuz uzunluğu (m)</label><input id="swimPool" type="number" min="0" placeholder="25"></div>
+    <div><label>Stil</label><input id="swimStyle" placeholder="Serbest"></div>
+    <div><label>Kalori</label><input id="swimCalories" type="number" min="0"></div>
+    <div><label>Not</label><input id="swimNote" placeholder="Yüzme antrenmanı"></div>
+  </div>
+  <div class="actions"><button onclick="saveSwim()">💾 Yüzmeyi kaydet</button><button class="secondary" onclick="resetSwimForm()">Temizle</button></div>
 </div>
 <div class="card"><h2>🏊 Yüzme geçmişi</h2><div id="swimHistory"></div></div>
 </section>
 
-<section id="history" class="hidden"><div id="historyList"></div></section>
+<section id="history" class="hidden">
+<div class="card">
+  <div class="toolbar">
+    <input id="historySearch" placeholder="🔎 Hareket, bölge veya tarih ara..." oninput="renderHistory()">
+    <select id="historyFilter" onchange="renderHistory()">
+      <option value="all">Tümü</option><option value="workout">🏋️ Ağırlık</option>
+      <option value="run">🏃 Koşu</option><option value="bike">🚴 Bisiklet</option><option value="swim">🏊 Yüzme</option>
+    </select>
+  </div>
+</div>
+<div id="historyList"></div>
+</section>
 
 <section id="progress" class="hidden">
 <div class="card"><h2>🏆 Kişisel rekorlar</h2><div id="prList"></div></div>
 <div class="card"><h2>📈 Hareket gelişimi</h2><div id="progressList"></div></div>
-<div class="card"><h2>🏋️ Ağırlık hacmi</h2><canvas id="chart" width="900" height="220"></canvas></div>
+<div class="card"><h2>🏋️ Antrenman hacmi</h2><canvas id="chart" width="900" height="240"></canvas></div>
+<div class="card"><h2>🏃 Koşu gelişimi</h2><canvas id="runChart" width="900" height="240"></canvas></div>
 </section>
+
+<section id="tools" class="hidden">
+<div class="card">
+  <h2>💾 Veri yedekleme</h2>
+  <p class="sub">Telefon değiştirirsen veya tarayıcı verileri silinirse kayıtlarını geri getirmek için yedek al.</p>
+  <div class="actions">
+    <button onclick="exportData()">⬇️ Yedeği indir</button>
+    <button class="secondary" onclick="document.getElementById('importFile').click()">⬆️ Yedek yükle</button>
+    <input id="importFile" type="file" accept=".json,application/json" hidden onchange="importData(event)">
+  </div>
+  <div class="notice">Yedek dosyası tüm ağırlık, koşu, bisiklet ve yüzme kayıtlarını içerir.</div>
+</div>
+<div class="card">
+  <h2>📊 Veri özeti</h2>
+  <div id="dataSummary"></div>
+</div>
+<div class="card">
+  <h2>⚠️ Veri sıfırlama</h2>
+  <p class="sub">Bu işlem paneldeki tüm kayıtları siler. Önce yedek almanı öneririm.</p>
+  <button class="danger" onclick="resetAllData()">Tüm kayıtları sil</button>
+</div>
+</section>
+
+<footer>Spor Panelim • Veriler bu cihazdaki tarayıcıda saklanır.</footer>
 </div>
 
 <script>
-const WKEY="spor_panelim_v2", RKEY="spor_panelim_runs_v2", BKEY="spor_panelim_bikes_v2", SKEY="spor_panelim_swims_v2";
-const today=new Date().toISOString().slice(0,10);
-let workouts=JSON.parse(localStorage.getItem(WKEY)||"[]");
-let runs=JSON.parse(localStorage.getItem(RKEY)||"[]");
-let bikes=JSON.parse(localStorage.getItem(BKEY)||"[]");
-let swims=JSON.parse(localStorage.getItem(SKEY)||"[]");
-let editExercises=[];
+const WKEY="spor_panelim_v2",RKEY="spor_panelim_runs_v2",BKEY="spor_panelim_bikes_v2",SKEY="spor_panelim_swims_v2";
+const $=id=>document.getElementById(id);
+function localToday(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+const today=localToday();
+let workouts=load(WKEY),runs=load(RKEY),bikes=load(BKEY),swims=load(SKEY),editExercises=[];
 
+function load(k){try{const v=JSON.parse(localStorage.getItem(k)||"[]");return Array.isArray(v)?v:[]}catch(e){return []}}
 function saveAll(){localStorage.setItem(WKEY,JSON.stringify(workouts));localStorage.setItem(RKEY,JSON.stringify(runs));localStorage.setItem(BKEY,JSON.stringify(bikes));localStorage.setItem(SKEY,JSON.stringify(swims))}
-function seedData(){
-const seeds=[
-{id:2026082301,date:"2026-08-23",muscle:"Sırt + Biceps + Karın",note:"Kayıtlı antrenman",exercises:[
-{name:"Lat Pulldown",sets:[{kg:70,reps:8},{kg:70,reps:6}]},{name:"Machine Wide Row",sets:[{kg:59,reps:7},{kg:59,reps:7}]},{name:"Dar Tutuş Machine Row",sets:[{kg:64,reps:6},{kg:64,reps:6}]},{name:"Rope Pullover",sets:[{kg:60,reps:11},{kg:60,reps:10}]},{name:"Cable Biceps Curl",sets:[{kg:60,reps:8},{kg:60,reps:8}]},{name:"Incline Dumbbell Curl",sets:[{kg:30,reps:6},{kg:30,reps:5}]},{name:"Oturarak Hammer Curl",sets:[{kg:40,reps:10},{kg:35,reps:14}]},{name:"Cable Crunch",sets:[{kg:55,reps:12},{kg:55,reps:12}]}
-]},
-{id:2026081301,date:"2026-08-13",muscle:"Göğüs + Omuz + Arka Kol",note:"Kayıtlı antrenman",exercises:[
-{name:"Machine Press",sets:[{kg:100,reps:8},{kg:100,reps:7}]},{name:"Incline Press",sets:[{kg:60,reps:5},{kg:60,reps:5}]},{name:"Fly",sets:[{kg:69,reps:8},{kg:69,reps:6}]},{name:"Lateral Raise",sets:[{kg:12.5,reps:10},{kg:12.5,reps:10}]},{name:"Pushdown",sets:[{kg:65,reps:8},{kg:65,reps:6}]},{name:"One Arm",sets:[{kg:25,reps:11},{kg:25,reps:11}]}
-]},
-{id:2026081001,date:"2026-08-10",muscle:"Bacak + Karın",note:"Kaydı net olan setler",exercises:[
-{name:"Leg Extension",sets:[{kg:40,reps:10},{kg:40,reps:10}]},{name:"Calf",sets:[{kg:40,reps:10},{kg:40,reps:10}]}
-]},
-{id:2026080801,date:"2026-08-08",muscle:"Göğüs + Karın",note:"Kayıtlı antrenman",exercises:[
-{name:"Pec Deck / Fly",sets:[{kg:69,reps:8},{kg:69,reps:8}]},{name:"Cable Crunch",sets:[{kg:55,reps:10}]}
-]},
-{id:2026090101,date:"2026-09-01",muscle:"Göğüs + Omuz + Arka Kol",note:"1 Eylül 2026 antrenman kaydı",exercises:[
-{name:"Machine Press",sets:[{kg:100,reps:8},{kg:100,reps:7}]},{name:"Incline Press",sets:[{kg:60,reps:5},{kg:60,reps:5}]},{name:"Pec Deck Fly",sets:[{kg:69,reps:8},{kg:69,reps:6}]},{name:"Lateral Raise",sets:[{kg:12.5,reps:10},{kg:12.5,reps:10}]},{name:"Cable Pushdown",sets:[{kg:65,reps:8},{kg:65,reps:6}]},{name:"One Arm",sets:[{kg:25,reps:11},{kg:25,reps:11}]}
-]}];
-seeds.forEach(x=>{if(!workouts.some(w=>w.id===x.id))workouts.push(x)});
-const run={id:2026090401,date:"2026-09-04",distance:10.07,duration:"01:01:14",calories:655,pace:"06:04",avgHr:"",maxHr:"",type:"Koşu",note:"4 Eylül 2026 koşu kaydı"};
-if(!runs.some(r=>r.id===run.id))runs.push(run);
-workouts.sort((a,b)=>b.date.localeCompare(a.date));runs.sort((a,b)=>b.date.localeCompare(a.date));saveAll();
-}
-seedData();
-
-function showTab(tab){
-["dashboard","add","running","cycling","swimming","history","progress"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==tab));
-["dashboard","add","running","cycling","swimming","history","progress"].forEach(x=>document.getElementById("t-"+x).classList.toggle("active",x===tab));
-if(tab==="dashboard")renderDashboard();if(tab==="history")renderHistory();if(tab==="progress")renderProgress();if(tab==="running")renderRuns();if(tab==="cycling")renderBikes();if(tab==="swimming")renderSwims();
-}
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function fmtDate(s){return new Date(s+"T12:00:00").toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"})}
+function fmtDate(s){if(!s)return "—";const d=new Date(s+"T12:00:00");return d.toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"})}
+function num(v){return Number(v)||0}
+function parseDuration(v){
+  const m=String(v||"").trim().match(/^(?:(\d+):)?(\d{1,2}):(\d{2})$/);
+  if(!m)return null;
+  return (num(m[1])*3600)+(num(m[2])*60)+num(m[3]);
+}
+function paceFrom(distance,duration){
+  const sec=parseDuration(duration);if(!distance||!sec)return "";
+  const p=sec/distance,mm=Math.floor(p/60),ss=Math.round(p%60);
+  if(ss===60)return String(mm+1).padStart(2,"0")+":00";
+  return String(mm).padStart(2,"0")+":"+String(ss).padStart(2,"0");
+}
+function speedFrom(distance,duration){
+  const sec=parseDuration(duration);if(!distance||!sec)return "";
+  return (distance/(sec/3600)).toFixed(1);
+}
+function openAddMenu(){
+  const choice=prompt("Ne eklemek istiyorsun?\n1 = Ağırlık\n2 = Koşu\n3 = Bisiklet\n4 = Yüzme");
+  if(choice==="1")showTab("add"); else if(choice==="2")showTab("running"); else if(choice==="3")showTab("cycling"); else if(choice==="4")showTab("swimming");
+}
+function showTab(tab){
+ const tabs=["dashboard","add","running","cycling","swimming","history","progress","tools"];
+ tabs.forEach(x=>$(x).classList.toggle("hidden",x!==tab));
+ tabs.forEach(x=>$("t-"+x).classList.toggle("active",x===tab));
+ if(tab==="dashboard")renderDashboard();
+ if(tab==="add")renderExercises();
+ if(tab==="history")renderHistory();
+ if(tab==="progress")renderProgress();
+ if(tab==="running")renderRuns();
+ if(tab==="cycling")renderBikes();
+ if(tab==="swimming")renderSwims();
+ if(tab==="tools")renderTools();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* AĞIRLIK */
 function addExercise(name="",sets=[{kg:"",reps:""}]){editExercises.push({name,sets});renderExercises()}
 function renderExercises(){
-const box=document.getElementById("exerciseList");box.innerHTML=editExercises.map((e,i)=>`
-<div class="exercise"><div class="exerciseHead"><h3>Hareket ${i+1}</h3><button class="danger" onclick="removeExercise(${i})">Sil</button></div>
-<label>Hareket adı</label><input value="${esc(e.name)}" oninput="editExercises[${i}].name=this.value" placeholder="Örn. Lat Pulldown">
-<div id="sets-${i}"></div><div class="actions"><button class="secondary" onclick="addSet(${i})">＋ Set</button></div></div>`).join("");
-editExercises.forEach((_,i)=>renderSets(i));
+ $("exerciseList").innerHTML=editExercises.map((e,i)=>`
+ <div class="exercise">
+  <div class="exerciseHead"><h3>Hareket ${i+1}</h3><button class="danger small" onclick="removeExercise(${i})">Sil</button></div>
+  <label>Hareket adı</label><input value="${esc(e.name)}" oninput="editExercises[${i}].name=this.value" placeholder="Örn. Lat Pulldown">
+  <div id="sets-${i}"></div>
+  <div class="actions"><button class="secondary small" onclick="addSet(${i})">＋ Set</button></div>
+ </div>`).join("");
+ editExercises.forEach((_,i)=>renderSets(i));
 }
-function renderSets(i){document.getElementById("sets-"+i).innerHTML=editExercises[i].sets.map((s,j)=>`
-<div class="setrow"><div class="setno">${j+1}</div><input type="number" step="0.5" value="${s.kg}" placeholder="Kilo" oninput="editExercises[${i}].sets[${j}].kg=this.value"><input type="number" value="${s.reps}" placeholder="Tekrar" oninput="editExercises[${i}].sets[${j}].reps=this.value"><button class="secondary" onclick="removeSet(${i},${j})">×</button></div>`).join("")}
-function addSet(i){editExercises[i].sets.push({kg:"",reps:""});renderSets(i)}function removeSet(i,j){if(editExercises[i].sets.length>1)editExercises[i].sets.splice(j,1);renderSets(i)}function removeExercise(i){editExercises.splice(i,1);renderExercises()}
-function resetWorkoutForm(){date.value=today;muscle.value="";note.value="";editExercises=[];addExercise()}
+function renderSets(i){
+ const box=$("sets-"+i);if(!box)return;
+ box.innerHTML=editExercises[i].sets.map((s,j)=>`
+ <div class="setrow"><div class="setno">${j+1}</div>
+ <input type="number" min="0" step="0.5" value="${esc(s.kg)}" placeholder="Kilo" oninput="editExercises[${i}].sets[${j}].kg=this.value">
+ <input type="number" min="0" step="1" value="${esc(s.reps)}" placeholder="Tekrar" oninput="editExercises[${i}].sets[${j}].reps=this.value">
+ <button class="secondary" onclick="removeSet(${i},${j})">×</button></div>`).join("");
+}
+function addSet(i){editExercises[i].sets.push({kg:"",reps:""});renderSets(i)}
+function removeSet(i,j){if(editExercises[i].sets.length>1)editExercises[i].sets.splice(j,1);renderSets(i)}
+function removeExercise(i){editExercises.splice(i,1);renderExercises()}
+function resetWorkoutForm(){$("date").value=today;$("muscle").value="";$("note").value="";editExercises=[];addExercise()}
 function saveWorkout(){
-const exercises=editExercises.map(e=>({name:e.name.trim(),sets:e.sets.filter(s=>s.kg!==""&&s.reps!=="").map(s=>({kg:+s.kg,reps:+s.reps}))})).filter(e=>e.name&&e.sets.length);
-if(!exercises.length)return alert("En az bir hareket ve set gir.");
-workouts.push({id:Date.now(),date:date.value||today,muscle:muscle.value.trim()||"Genel",note:note.value.trim(),exercises});workouts.sort((a,b)=>b.date.localeCompare(a.date));saveAll();resetWorkoutForm();alert("Antrenman kaydedildi 💪");showTab("history")
+ const exercises=editExercises.map(e=>({name:e.name.trim(),sets:e.sets.filter(s=>s.kg!==""&&s.reps!=="").map(s=>({kg:num(s.kg),reps:num(s.reps)}))})).filter(e=>e.name&&e.sets.length);
+ if(!exercises.length)return alert("En az bir hareket ve set gir.");
+ workouts.push({id:Date.now()+Math.random(),date:$("date").value||today,muscle:$("muscle").value.trim()||"Genel",note:$("note").value.trim(),exercises});
+ workouts.sort((a,b)=>b.date.localeCompare(a.date));saveAll();resetWorkoutForm();alert("Antrenman kaydedildi 💪");showTab("history");
 }
 function workoutCard(w){
-return `<div class="card"><div class="workoutHead"><div><h3>${esc(w.muscle)}</h3><div class="date">${fmtDate(w.date)}</div></div><div class="actions" style="margin:0"><button class="secondary" onclick="copyWorkout(${w.id})">Kopyala</button><button class="danger" onclick="deleteWorkout(${w.id})">Sil</button></div></div>
-<table><thead><tr><th>Hareket</th><th>Setler</th></tr></thead><tbody>${w.exercises.map(e=>`<tr><td><b>${esc(e.name)}</b></td><td>${e.sets.map(s=>`${s.kg} kg × ${s.reps}`).join("<br>")}</td></tr>`).join("")}</tbody></table>${w.note?`<div class="sub" style="margin-top:8px">📝 ${esc(w.note)}</div>`:""}</div>`
+ return `<div class="card"><div class="workoutHead"><div><h3>🏋️ ${esc(w.muscle)}</h3><div class="date">${fmtDate(w.date)}</div></div>
+ <div class="actions" style="margin:0"><button class="secondary small" onclick="copyWorkout('${w.id}')">Kopyala</button><button class="secondary small" onclick="editWorkout('${w.id}')">Düzenle</button><button class="danger small" onclick="deleteWorkout('${w.id}')">Sil</button></div></div>
+ <table><thead><tr><th>Hareket</th><th>Setler</th></tr></thead><tbody>${w.exercises.map(e=>`<tr><td><b>${esc(e.name)}</b></td><td>${e.sets.map(s=>`${s.kg} kg × ${s.reps}`).join("<br>")}</td></tr>`).join("")}</tbody></table>
+ ${w.note?`<div class="sub" style="margin-top:8px">📝 ${esc(w.note)}</div>`:""}</div>`;
 }
-function renderHistory(){document.getElementById("historyList").innerHTML=workouts.length?workouts.map(workoutCard).join(""):'<div class="card empty">Henüz ağırlık kaydı yok.</div>'}
-function copyWorkout(id){const w=workouts.find(x=>x.id===id);if(!w)return;date.value=today;muscle.value=w.muscle;note.value="";editExercises=w.exercises.map(e=>({name:e.name,sets:e.sets.map(s=>({...s}))}));renderExercises();showTab("add")}
-function deleteWorkout(id){if(confirm("Bu antrenman silinsin mi?")){workouts=workouts.filter(w=>w.id!==id);saveAll();renderHistory();renderDashboard();renderProgress()}}
+function copyWorkout(id){const w=workouts.find(x=>String(x.id)===String(id));if(!w)return;$("date").value=today;$("muscle").value=w.muscle;$("note").value="";editExercises=w.exercises.map(e=>({name:e.name,sets:e.sets.map(s=>({...s}))}));renderExercises();showTab("add")}
+function editWorkout(id){
+ const w=workouts.find(x=>String(x.id)===String(id));if(!w)return;
+ $("date").value=w.date;$("muscle").value=w.muscle;$("note").value=w.note||"";
+ editExercises=w.exercises.map(e=>({name:e.name,sets:e.sets.map(s=>({...s}))}));
+ window.editingWorkoutId=w.id;renderExercises();showTab("add");
+ $("add").querySelector("h2").textContent="✏️ Antrenmanı düzenle";
+}
+function saveWorkout(){
+ const exercises=editExercises.map(e=>({name:e.name.trim(),sets:e.sets.filter(s=>s.kg!==""&&s.reps!=="").map(s=>({kg:num(s.kg),reps:num(s.reps)}))})).filter(e=>e.name&&e.sets.length);
+ if(!exercises.length)return alert("En az bir hareket ve set gir.");
+ const data={date:$("date").value||today,muscle:$("muscle").value.trim()||"Genel",note:$("note").value.trim(),exercises};
+ if(window.editingWorkoutId){
+   const i=workouts.findIndex(w=>String(w.id)===String(window.editingWorkoutId));
+   if(i>=0)workouts[i]={...workouts[i],...data};
+   window.editingWorkoutId=null;$("add").querySelector("h2").textContent="🏋️ Yeni ağırlık antrenmanı";
+   alert("Antrenman güncellendi ✅");
+ }else{workouts.push({id:Date.now()+Math.random(),...data});alert("Antrenman kaydedildi 💪")}
+ workouts.sort((a,b)=>b.date.localeCompare(a.date));saveAll();resetWorkoutForm();showTab("history");
+}
+function deleteWorkout(id){if(confirm("Bu antrenman silinsin mi?")){workouts=workouts.filter(w=>String(w.id)!==String(id));saveAll();renderHistory();renderDashboard();renderProgress()}}
 
+/* KOŞU */
+function autoRunPace(){const p=paceFrom(num($("runDistance").value),$("runDuration").value);if(p)$("runPace").value=p}
+$("runDistance").addEventListener("input",autoRunPace);$("runDuration").addEventListener("input",autoRunPace);
 function saveRun(){
-const r={id:Date.now(),date:runDate.value||today,distance:+runDistance.value||0,duration:runDuration.value.trim(),pace:runPace.value.trim(),calories:+runCalories.value||0,avgHr:runAvgHr.value.trim(),maxHr:runMaxHr.value.trim(),type:runType.value.trim()||"Koşu",note:runNote.value.trim()};
-if(!r.distance||!r.duration)return alert("Mesafe ve süre gerekli.");runs.unshift(r);saveAll();resetRunForm();renderRuns();renderDashboard();alert("Koşu kaydedildi 🏃")
+ const r={id:Date.now()+Math.random(),date:$("runDate").value||today,distance:num($("runDistance").value),duration:$("runDuration").value.trim(),pace:$("runPace").value.trim(),calories:num($("runCalories").value),avgHr:$("runAvgHr").value.trim(),maxHr:$("runMaxHr").value.trim(),type:$("runType").value.trim()||"Koşu",note:$("runNote").value.trim()};
+ if(!r.distance||!r.duration)return alert("Mesafe ve süre gerekli.");
+ if(!r.pace)r.pace=paceFrom(r.distance,r.duration);
+ if(!r.pace)return alert("Süreyi SS:DD veya SS:MM:SS formatında gir. Örn: 01:01:14");
+ runs.push(r);runs.sort((a,b)=>b.date.localeCompare(a.date));saveAll();resetRunForm();renderRuns();renderDashboard();alert("Koşu kaydedildi 🏃");
 }
-function resetRunForm(){runDate.value=today;["runDistance","runDuration","runPace","runCalories","runAvgHr","runMaxHr","runType","runNote"].forEach(id=>document.getElementById(id).value="")}
+function resetRunForm(){$("runDate").value=today;["runDistance","runDuration","runPace","runCalories","runAvgHr","runMaxHr","runType","runNote"].forEach(id=>$(id).value="")}
 function renderRuns(){
-const total=runs.reduce((a,r)=>a+(+r.distance||0),0);
-document.getElementById("runHistory").innerHTML=`<div class="runGrid"><div class="runStat"><b>${runs.length}</b><span>Koşu</span></div><div class="runStat"><b>${total.toFixed(2)} km</b><span>Toplam mesafe</span></div><div class="runStat"><b>${runs.reduce((a,r)=>a+(+r.calories||0),0)}</b><span>Toplam kalori</span></div><div class="runStat"><b>${runs[0]?.pace||"—"}</b><span>Son tempo</span></div></div>`+
-(runs.length?runs.map(r=>`<div class="card" style="margin-top:11px"><div class="runHead"><div><b>${fmtDate(r.date)}</b><div class="sub">${esc(r.type||"Koşu")}</div></div><button class="danger" onclick="deleteRun(${r.id})">Sil</button></div><div class="runGrid"><div class="runStat"><b>${(+r.distance).toFixed(2)}</b><span>km</span></div><div class="runStat"><b>${esc(r.duration)}</b><span>Süre</span></div><div class="runStat"><b>${esc(r.pace||"—")}</b><span>dk/km</span></div><div class="runStat"><b>${r.calories||"—"}</b><span>Kalori</span></div></div><div class="sub" style="margin-top:9px">${r.avgHr?`Ort. nabız: ${esc(r.avgHr)} bpm · `:""}${r.maxHr?`Maks. nabız: ${esc(r.maxHr)} bpm · `:""}${esc(r.note||"")}</div></div>`).join(""):'<div class="empty">Koşu kaydı yok.</div>')
+ const total=runs.reduce((a,r)=>a+num(r.distance),0),cal=runs.reduce((a,r)=>a+num(r.calories),0);
+ $("runHistory").innerHTML=`<div class="runGrid"><div class="runStat"><b>${runs.length}</b><span>Koşu</span></div><div class="runStat"><b>${total.toFixed(2)} km</b><span>Toplam mesafe</span></div><div class="runStat"><b>${cal}</b><span>Toplam kalori</span></div><div class="runStat"><b>${esc(runs[0]?.pace||"—")}</b><span>Son tempo</span></div></div>`+
+ (runs.length?runs.map(r=>`<div class="card" style="margin-top:11px"><div class="runHead"><div><b>🏃 ${fmtDate(r.date)}</b><div class="sub">${esc(r.type||"Koşu")}</div></div>
+ <div class="actions" style="margin:0"><button class="secondary small" onclick="editRun('${r.id}')">Düzenle</button><button class="danger small" onclick="deleteRun('${r.id}')">Sil</button></div></div>
+ <div class="runGrid"><div class="runStat"><b>${num(r.distance).toFixed(2)}</b><span>km</span></div><div class="runStat"><b>${esc(r.duration)}</b><span>Süre</span></div><div class="runStat"><b>${esc(r.pace||"—")}</b><span>dk/km</span></div><div class="runStat"><b>${r.calories||"—"}</b><span>Kalori</span></div></div>
+ <div class="sub" style="margin-top:9px">${r.avgHr?`Ort. nabız: ${esc(r.avgHr)} bpm · `:""}${r.maxHr?`Maks. nabız: ${esc(r.maxHr)} bpm · `:""}${esc(r.note||"")}</div></div>`).join(""):'<div class="empty">Koşu kaydı yok.</div>');
 }
-function deleteRun(id){if(confirm("Bu koşu silinsin mi?")){runs=runs.filter(r=>r.id!==id);saveAll();renderRuns();renderDashboard()}}
+function editRun(id){const r=runs.find(x=>String(x.id)===String(id));if(!r)return;$("runDate").value=r.date;$("runDistance").value=r.distance;$("runDuration").value=r.duration;$("runPace").value=r.pace||"";$("runCalories").value=r.calories||"";$("runAvgHr").value=r.avgHr||"";$("runMaxHr").value=r.maxHr||"";$("runType").value=r.type||"";$("runNote").value=r.note||"";window.editingRunId=r.id;showTab("running");$("running").querySelector("h2").textContent="✏️ Koşuyu düzenle"}
+const oldSaveRun=saveRun;
+saveRun=function(){
+ if(window.editingRunId){
+  const r={id:window.editingRunId,date:$("runDate").value||today,distance:num($("runDistance").value),duration:$("runDuration").value.trim(),pace:$("runPace").value.trim()||paceFrom(num($("runDistance").value),$("runDuration").value),calories:num($("runCalories").value),avgHr:$("runAvgHr").value.trim(),maxHr:$("runMaxHr").value.trim(),type:$("runType").value.trim()||"Koşu",note:$("runNote").value.trim()};
+  if(!r.distance||!r.duration||!parseDuration(r.duration))return alert("Mesafe ve geçerli süre gerekli. Örn: 01:01:14");
+  runs=runs.map(x=>String(x.id)===String(window.editingRunId)?r:x);runs.sort((a,b)=>b.date.localeCompare(a.date));saveAll();window.editingRunId=null;$("running").querySelector("h2").textContent="🏃 Koşu ekle";resetRunForm();renderRuns();renderDashboard();alert("Koşu güncellendi ✅");
+ }else oldSaveRun();
+}
+function deleteRun(id){if(confirm("Bu koşu silinsin mi?")){runs=runs.filter(r=>String(r.id)!==String(id));saveAll();renderRuns();renderDashboard();renderHistory()}}
 
+/* BİSİKLET */
+$("bikeDistance").addEventListener("input",autoBikeSpeed);$("bikeDuration").addEventListener("input",autoBikeSpeed);
+function autoBikeSpeed(){const s=speedFrom(num($("bikeDistance").value),$("bikeDuration").value);if(s)$("bikeSpeed").value=s}
 function saveBike(){
-const b={id:Date.now(),date:bikeDate.value||today,distance:+bikeDistance.value||0,duration:bikeDuration.value.trim(),speed:+bikeSpeed.value||0,calories:+bikeCalories.value||0,avgHr:bikeAvgHr.value.trim(),elevation:+bikeElevation.value||0,note:bikeNote.value.trim()};
-if(!b.distance||!b.duration)return alert("Mesafe ve süre gerekli.");bikes.unshift(b);saveAll();resetBikeForm();renderBikes();renderDashboard();alert("Bisiklet kaydedildi 🚴")
+ const b={id:Date.now()+Math.random(),date:$("bikeDate").value||today,distance:num($("bikeDistance").value),duration:$("bikeDuration").value.trim(),speed:num($("bikeSpeed").value),calories:num($("bikeCalories").value),avgHr:$("bikeAvgHr").value.trim(),elevation:num($("bikeElevation").value),note:$("bikeNote").value.trim()};
+ if(!b.distance||!b.duration||!parseDuration(b.duration))return alert("Mesafe ve geçerli süre gerekli. Örn: 01:30:00");
+ bikes.push(b);bikes.sort((a,b)=>b.date.localeCompare(a.date));saveAll();resetBikeForm();renderBikes();renderDashboard();alert("Bisiklet kaydedildi 🚴");
 }
-function resetBikeForm(){bikeDate.value=today;["bikeDistance","bikeDuration","bikeSpeed","bikeCalories","bikeAvgHr","bikeElevation","bikeNote"].forEach(id=>document.getElementById(id).value="")}
+function resetBikeForm(){$("bikeDate").value=today;["bikeDistance","bikeDuration","bikeSpeed","bikeCalories","bikeAvgHr","bikeElevation","bikeNote"].forEach(id=>$(id).value="")}
 function renderBikes(){
-const total=bikes.reduce((a,b)=>a+(+b.distance||0),0);document.getElementById("bikeHistory").innerHTML=`<div class="runGrid"><div class="runStat"><b>${bikes.length}</b><span>Bisiklet</span></div><div class="runStat"><b>${total.toFixed(2)} km</b><span>Toplam mesafe</span></div><div class="runStat"><b>${bikes.reduce((a,b)=>a+(+b.calories||0),0)}</b><span>Toplam kalori</span></div><div class="runStat"><b>${bikes[0]?.speed||"—"}</b><span>Son hız</span></div></div>`+
-(bikes.length?bikes.map(b=>`<div class="card" style="margin-top:11px"><div class="runHead"><div><b>${fmtDate(b.date)}</b></div><button class="danger" onclick="deleteBike(${b.id})">Sil</button></div><div class="runGrid"><div class="runStat"><b>${(+b.distance).toFixed(2)}</b><span>km</span></div><div class="runStat"><b>${esc(b.duration)}</b><span>Süre</span></div><div class="runStat"><b>${b.speed||"—"}</b><span>km/s</span></div><div class="runStat"><b>${b.elevation||"—"}</b><span>Elevasyon m</span></div></div><div class="sub" style="margin-top:9px">${b.avgHr?`Ort. nabız: ${esc(b.avgHr)} bpm · `:""}${b.calories?`${b.calories} kcal · `:""}${esc(b.note||"")}</div></div>`).join(""):'<div class="empty">Bisiklet kaydı yok.</div>')
+ const total=bikes.reduce((a,b)=>a+num(b.distance),0),cal=bikes.reduce((a,b)=>a+num(b.calories),0);
+ $("bikeHistory").innerHTML=`<div class="runGrid"><div class="runStat"><b>${bikes.length}</b><span>Bisiklet</span></div><div class="runStat"><b>${total.toFixed(2)} km</b><span>Toplam mesafe</span></div><div class="runStat"><b>${cal}</b><span>Toplam kalori</span></div><div class="runStat"><b>${bikes[0]?.speed||"—"}</b><span>Son hız</span></div></div>`+
+ (bikes.length?bikes.map(b=>`<div class="card" style="margin-top:11px"><div class="runHead"><b>🚴 ${fmtDate(b.date)}</b><div class="actions" style="margin:0"><button class="secondary small" onclick="editBike('${b.id}')">Düzenle</button><button class="danger small" onclick="deleteBike('${b.id}')">Sil</button></div></div>
+ <div class="runGrid"><div class="runStat"><b>${num(b.distance).toFixed(2)}</b><span>km</span></div><div class="runStat"><b>${esc(b.duration)}</b><span>Süre</span></div><div class="runStat"><b>${b.speed||"—"}</b><span>km/s</span></div><div class="runStat"><b>${b.elevation||"—"}</b><span>Elevasyon m</span></div></div>
+ <div class="sub" style="margin-top:9px">${b.avgHr?`Ort. nabız: ${esc(b.avgHr)} bpm · `:""}${b.calories?`${b.calories} kcal · `:""}${esc(b.note||"")}</div></div>`).join(""):'<div class="empty">Bisiklet kaydı yok.</div>');
 }
-function deleteBike(id){if(confirm("Bu bisiklet kaydı silinsin mi?")){bikes=bikes.filter(b=>b.id!==id);saveAll();renderBikes();renderDashboard()}}
+function editBike(id){const b=bikes.find(x=>String(x.id)===String(id));if(!b)return;$("bikeDate").value=b.date;$("bikeDistance").value=b.distance;$("bikeDuration").value=b.duration;$("bikeSpeed").value=b.speed||"";$("bikeCalories").value=b.calories||"";$("bikeAvgHr").value=b.avgHr||"";$("bikeElevation").value=b.elevation||"";$("bikeNote").value=b.note||"";window.editingBikeId=b.id;showTab("cycling");$("cycling").querySelector("h2").textContent="✏️ Bisikleti düzenle"}
+const oldSaveBike=saveBike;
+saveBike=function(){
+ if(window.editingBikeId){
+  const b={id:window.editingBikeId,date:$("bikeDate").value||today,distance:num($("bikeDistance").value),duration:$("bikeDuration").value.trim(),speed:num($("bikeSpeed").value)||num(speedFrom(num($("bikeDistance").value),$("bikeDuration").value)),calories:num($("bikeCalories").value),avgHr:$("bikeAvgHr").value.trim(),elevation:num($("bikeElevation").value),note:$("bikeNote").value.trim()};
+  if(!b.distance||!b.duration||!parseDuration(b.duration))return alert("Mesafe ve geçerli süre gerekli.");
+  bikes=bikes.map(x=>String(x.id)===String(window.editingBikeId)?b:x);bikes.sort((a,b)=>b.date.localeCompare(a.date));saveAll();window.editingBikeId=null;$("cycling").querySelector("h2").textContent="🚴 Bisiklet ekle";resetBikeForm();renderBikes();renderDashboard();alert("Bisiklet güncellendi ✅");
+ }else oldSaveBike();
+}
+function deleteBike(id){if(confirm("Bu bisiklet kaydı silinsin mi?")){bikes=bikes.filter(b=>String(b.id)!==String(id));saveAll();renderBikes();renderDashboard();renderHistory()}}
 
+/* YÜZME */
 function saveSwim(){
-const s={id:Date.now(),date:swimDate.value||today,distance:+swimDistance.value||0,duration:swimDuration.value.trim(),pool:+swimPool.value||0,style:swimStyle.value.trim(),calories:+swimCalories.value||0,note:swimNote.value.trim()};
-if(!s.distance||!s.duration)return alert("Mesafe ve süre gerekli.");swims.unshift(s);saveAll();resetSwimForm();renderSwims();renderDashboard();alert("Yüzme kaydedildi 🏊")
+ const s={id:Date.now()+Math.random(),date:$("swimDate").value||today,distance:num($("swimDistance").value),duration:$("swimDuration").value.trim(),pool:num($("swimPool").value),style:$("swimStyle").value.trim(),calories:num($("swimCalories").value),note:$("swimNote").value.trim()};
+ if(!s.distance||!s.duration||!parseDuration(s.duration))return alert("Mesafe ve geçerli süre gerekli. Örn: 00:45:00");
+ swims.push(s);swims.sort((a,b)=>b.date.localeCompare(a.date));saveAll();resetSwimForm();renderSwims();renderDashboard();alert("Yüzme kaydedildi 🏊");
 }
-function resetSwimForm(){swimDate.value=today;["swimDistance","swimDuration","swimPool","swimStyle","swimCalories","swimNote"].forEach(id=>document.getElementById(id).value="")}
+function resetSwimForm(){$("swimDate").value=today;["swimDistance","swimDuration","swimPool","swimStyle","swimCalories","swimNote"].forEach(id=>$(id).value="")}
 function renderSwims(){
-const total=swims.reduce((a,s)=>a+(+s.distance||0),0);document.getElementById("swimHistory").innerHTML=`<div class="runGrid"><div class="runStat"><b>${swims.length}</b><span>Yüzme</span></div><div class="runStat"><b>${total.toFixed(2)} km</b><span>Toplam mesafe</span></div><div class="runStat"><b>${swims.reduce((a,s)=>a+(+s.calories||0),0)}</b><span>Toplam kalori</span></div><div class="runStat"><b>${swims[0]?.style||"—"}</b><span>Son stil</span></div></div>`+
-(swims.length?swims.map(s=>`<div class="card" style="margin-top:11px"><div class="runHead"><b>${fmtDate(s.date)}</b><button class="danger" onclick="deleteSwim(${s.id})">Sil</button></div><div class="runGrid"><div class="runStat"><b>${(+s.distance).toFixed(2)}</b><span>km</span></div><div class="runStat"><b>${esc(s.duration)}</b><span>Süre</span></div><div class="runStat"><b>${s.pool||"—"}</b><span>Havuz m</span></div><div class="runStat"><b>${s.calories||"—"}</b><span>Kalori</span></div></div><div class="sub" style="margin-top:9px">${s.style?`Stil: ${esc(s.style)} · `:""}${esc(s.note||"")}</div></div>`).join(""):'<div class="empty">Yüzme kaydı yok.</div>')
+ const total=swims.reduce((a,s)=>a+num(s.distance),0),cal=swims.reduce((a,s)=>a+num(s.calories),0);
+ $("swimHistory").innerHTML=`<div class="runGrid"><div class="runStat"><b>${swims.length}</b><span>Yüzme</span></div><div class="runStat"><b>${total.toFixed(2)} km</b><span>Toplam mesafe</span></div><div class="runStat"><b>${cal}</b><span>Toplam kalori</span></div><div class="runStat"><b>${esc(swims[0]?.style||"—")}</b><span>Son stil</span></div></div>`+
+ (swims.length?swims.map(s=>`<div class="card" style="margin-top:11px"><div class="runHead"><b>🏊 ${fmtDate(s.date)}</b><div class="actions" style="margin:0"><button class="secondary small" onclick="editSwim('${s.id}')">Düzenle</button><button class="danger small" onclick="deleteSwim('${s.id}')">Sil</button></div></div>
+ <div class="runGrid"><div class="runStat"><b>${num(s.distance).toFixed(2)}</b><span>km</span></div><div class="runStat"><b>${esc(s.duration)}</b><span>Süre</span></div><div class="runStat"><b>${s.pool||"—"}</b><span>Havuz m</span></div><div class="runStat"><b>${s.calories||"—"}</b><span>Kalori</span></div></div>
+ <div class="sub" style="margin-top:9px">${s.style?`Stil: ${esc(s.style)} · `:""}${esc(s.note||"")}</div></div>`).join(""):'<div class="empty">Yüzme kaydı yok.</div>');
 }
-function deleteSwim(id){if(confirm("Bu yüzme kaydı silinsin mi?")){swims=swims.filter(s=>s.id!==id);saveAll();renderSwims();renderDashboard()}}
+function editSwim(id){const s=swims.find(x=>String(x.id)===String(id));if(!s)return;$("swimDate").value=s.date;$("swimDistance").value=s.distance;$("swimDuration").value=s.duration;$("swimPool").value=s.pool||"";$("swimStyle").value=s.style||"";$("swimCalories").value=s.calories||"";$("swimNote").value=s.note||"";window.editingSwimId=s.id;showTab("swimming");$("swimming").querySelector("h2").textContent="✏️ Yüzmeyi düzenle"}
+const oldSaveSwim=saveSwim;
+saveSwim=function(){
+ if(window.editingSwimId){
+  const s={id:window.editingSwimId,date:$("swimDate").value||today,distance:num($("swimDistance").value),duration:$("swimDuration").value.trim(),pool:num($("swimPool").value),style:$("swimStyle").value.trim(),calories:num($("swimCalories").value),note:$("swimNote").value.trim()};
+  if(!s.distance||!s.duration||!parseDuration(s.duration))return alert("Mesafe ve geçerli süre gerekli.");
+  swims=swims.map(x=>String(x.id)===String(window.editingSwimId)?s:x);swims.sort((a,b)=>b.date.localeCompare(a.date));saveAll();window.editingSwimId=null;$("swimming").querySelector("h2").textContent="🏊 Yüzme ekle";resetSwimForm();renderSwims();renderDashboard();alert("Yüzme güncellendi ✅");
+ }else oldSaveSwim();
+}
+function deleteSwim(id){if(confirm("Bu yüzme kaydı silinsin mi?")){swims=swims.filter(s=>String(s.id)!==String(id));saveAll();renderSwims();renderDashboard();renderHistory()}}
 
-function weekStart(){const d=new Date();const day=d.getDay();const diff=(day===0?-6:1-day);d.setDate(d.getDate()+diff);d.setHours(0,0,0,0);return d}
+/* ÖZET / TAKVİM */
+function weekStart(){const d=new Date();const day=d.getDay();d.setDate(d.getDate()+(day===0?-6:1-day));d.setHours(0,0,0,0);return d}
 function inThisWeek(date){const d=new Date(date+"T12:00:00"),s=weekStart(),e=new Date(s);e.setDate(e.getDate()+7);return d>=s&&d<e}
+function allActivities(){
+ return [
+  ...workouts.map(w=>({kind:"workout",date:w.date,id:w.id,icon:"🏋️",title:w.muscle,sub:"Ağırlık"})),
+  ...runs.map(r=>({kind:"run",date:r.date,id:r.id,icon:"🏃",title:num(r.distance).toFixed(2)+" km",sub:"Koşu"})),
+  ...bikes.map(b=>({kind:"bike",date:b.date,id:b.id,icon:"🚴",title:num(b.distance).toFixed(2)+" km",sub:"Bisiklet"})),
+  ...swims.map(s=>({kind:"swim",date:s.date,id:s.id,icon:"🏊",title:num(s.distance).toFixed(2)+" km",sub:"Yüzme"}))
+ ].sort((a,b)=>b.date.localeCompare(a.date));
+}
 function renderDashboard(){
-document.getElementById("statWorkouts").textContent=workouts.length;
-document.getElementById("statRunKm").textContent=runs.reduce((a,r)=>a+(+r.distance||0),0).toFixed(1);
-document.getElementById("statBikeKm").textContent=bikes.reduce((a,r)=>a+(+r.distance||0),0).toFixed(1);
-document.getElementById("statSwimKm").textContent=swims.reduce((a,r)=>a+(+r.distance||0),0).toFixed(1);
-const ww=workouts.filter(w=>inThisWeek(w.date)),rr=runs.filter(r=>inThisWeek(r.date)),bb=bikes.filter(r=>inThisWeek(r.date)),ss=swims.filter(r=>inThisWeek(r.date));
-document.getElementById("weekStats").innerHTML=`<div class="runStat"><b>${ww.length}</b><span>🏋️ Ağırlık</span></div><div class="runStat"><b>${rr.reduce((a,r)=>a+(+r.distance||0),0).toFixed(1)} km</b><span>🏃 Koşu</span></div><div class="runStat"><b>${bb.reduce((a,r)=>a+(+r.distance||0),0).toFixed(1)} km</b><span>🚴 Bisiklet</span></div><div class="runStat"><b>${ss.reduce((a,r)=>a+(+r.distance||0),0).toFixed(1)} km</b><span>🏊 Yüzme</span></div>`;
-const all=[
-...workouts.map(w=>({date:w.date,icon:"🏋️",title:w.muscle,sub:"Ağırlık"})),
-...runs.map(r=>({date:r.date,icon:"🏃",title:(+r.distance).toFixed(2)+" km",sub:"Koşu"})),
-...bikes.map(r=>({date:r.date,icon:"🚴",title:(+r.distance).toFixed(2)+" km",sub:"Bisiklet"})),
-...swims.map(r=>({date:r.date,icon:"🏊",title:(+r.distance).toFixed(2)+" km",sub:"Yüzme"}))
-].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8);
-document.getElementById("latestActivities").innerHTML=all.length?all.map(a=>`<div class="progressItem"><div class="progressHead"><span>${a.icon} ${esc(a.title)}</span><span>${fmtDate(a.date)}</span></div><div class="progressSub">${a.sub}</div></div>`).join(""):'<div class="empty">Henüz aktivite yok.</div>';
-renderCalendar();
+ $("statWorkouts").textContent=workouts.length;
+ $("statRunKm").textContent=runs.reduce((a,r)=>a+num(r.distance),0).toFixed(1);
+ $("statBikeKm").textContent=bikes.reduce((a,r)=>a+num(r.distance),0).toFixed(1);
+ $("statSwimKm").textContent=swims.reduce((a,r)=>a+num(r.distance),0).toFixed(1);
+ const ww=workouts.filter(w=>inThisWeek(w.date)),rr=runs.filter(r=>inThisWeek(r.date)),bb=bikes.filter(b=>inThisWeek(b.date)),ss=swims.filter(s=>inThisWeek(s.date));
+ $("weekStats").innerHTML=`<div class="runStat"><b>${ww.length}</b><span>🏋️ Ağırlık</span></div><div class="runStat"><b>${rr.reduce((a,r)=>a+num(r.distance),0).toFixed(1)} km</b><span>🏃 Koşu</span></div><div class="runStat"><b>${bb.reduce((a,r)=>a+num(r.distance),0).toFixed(1)} km</b><span>🚴 Bisiklet</span></div><div class="runStat"><b>${ss.reduce((a,r)=>a+num(r.distance),0).toFixed(1)} km</b><span>🏊 Yüzme</span></div>`;
+ const all=allActivities().slice(0,10);
+ $("latestActivities").innerHTML=all.length?all.map(a=>`<div class="progressItem"><div class="progressHead"><span>${a.icon} ${esc(a.title)}</span><span>${fmtDate(a.date)}</span></div><div class="progressSub">${a.sub}</div></div>`).join(""):'<div class="empty">Henüz aktivite yok.</div>';
+ renderCalendar();
 }
 function renderCalendar(){
-const box=document.getElementById("calendar"),d=new Date();const y=d.getFullYear(),m=d.getMonth();const first=new Date(y,m,1),days=new Date(y,m+1,0).getDate(),start=(first.getDay()+6)%7;
-let out="";for(let i=0;i<start;i++)out+='<div></div>';
-for(let day=1;day<=days;day++){const ds=`${y}-${String(m+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;let icons=[];if(workouts.some(x=>x.date===ds))icons.push("🏋️");if(runs.some(x=>x.date===ds))icons.push("🏃");if(bikes.some(x=>x.date===ds))icons.push("🚴");if(swims.some(x=>x.date===ds))icons.push("🏊");out+=`<div class="day"><b>${day}</b>${icons.join(" ")||"—"}</div>`}box.innerHTML=out;
+ const box=$("calendar"),d=new Date(),y=d.getFullYear(),m=d.getMonth(),first=new Date(y,m,1),days=new Date(y,m+1,0).getDate(),start=(first.getDay()+6)%7;
+ let out="";for(let i=0;i<start;i++)out+="<div></div>";
+ for(let day=1;day<=days;day++){const ds=`${y}-${String(m+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;let icons=[];if(workouts.some(x=>x.date===ds))icons.push("🏋️");if(runs.some(x=>x.date===ds))icons.push("🏃");if(bikes.some(x=>x.date===ds))icons.push("🚴");if(swims.some(x=>x.date===ds))icons.push("🏊");out+=`<div class="day ${ds===today?"today":""}"><b>${day}</b>${icons.join(" ")||"—"}</div>`}
+ box.innerHTML=out;
 }
+
+/* GEÇMİŞ */
+function renderHistory(){
+ const q=($("historySearch")?.value||"").toLowerCase().trim(),f=$("historyFilter")?.value||"all";
+ let out="";
+ if(f==="all"||f==="workout")workouts.filter(w=>!q||JSON.stringify(w).toLowerCase().includes(q)).forEach(w=>out+=workoutCard(w));
+ if(f==="all"||f==="run")runs.filter(r=>!q||JSON.stringify(r).toLowerCase().includes(q)).forEach(r=>out+=activityHistoryCard("run",r));
+ if(f==="all"||f==="bike")bikes.filter(b=>!q||JSON.stringify(b).toLowerCase().includes(q)).forEach(b=>out+=activityHistoryCard("bike",b));
+ if(f==="all"||f==="swim")swims.filter(s=>!q||JSON.stringify(s).toLowerCase().includes(q)).forEach(s=>out+=activityHistoryCard("swim",s));
+ $("historyList").innerHTML=out||'<div class="card empty">Aramana uyan kayıt yok.</div>';
+}
+function activityHistoryCard(kind,x){
+ const info=kind==="run"?["🏃 Koşu",`${num(x.distance).toFixed(2)} km · ${x.duration} · ${x.pace||"—"} dk/km`]:kind==="bike"?["🚴 Bisiklet",`${num(x.distance).toFixed(2)} km · ${x.duration} · ${x.speed||"—"} km/s`]:["🏊 Yüzme",`${num(x.distance).toFixed(2)} km · ${x.duration} · ${x.style||"—"}`];
+ return `<div class="card"><div class="workoutHead"><div><h3>${info[0]}</h3><div class="date">${fmtDate(x.date)}</div></div><div class="actions" style="margin:0"><button class="secondary small" onclick="edit${kind[0].toUpperCase()+kind.slice(1)}('${x.id}')">Düzenle</button><button class="danger small" onclick="delete${kind[0].toUpperCase()+kind.slice(1)}('${x.id}')">Sil</button></div></div><div style="margin-top:10px">${esc(info[1])}</div><div class="sub" style="margin-top:7px">${esc(x.note||"")}</div></div>`;
+}
+
+/* GELİŞİM */
 function renderProgress(){
-const map={};workouts.slice().reverse().forEach(w=>w.exercises.forEach(e=>{map[e.name]??=[];e.sets.forEach(s=>map[e.name].push({date:w.date,kg:s.kg,reps:s.reps}))}));
-const names=Object.keys(map);
-document.getElementById("prList").innerHTML=names.length?names.map(n=>{const best=map[n].reduce((a,b)=>(b.kg>a.kg||b.kg===a.kg&&b.reps>a.reps)?b:a);return `<div class="progressItem"><div class="progressHead"><span>${esc(n)}</span><span>${best.kg} kg × ${best.reps}</span></div><div class="progressSub">Kişisel en iyi kayıt</div></div>`}).join(""):'<div class="empty">Henüz rekor verisi yok.</div>';
-document.getElementById("progressList").innerHTML=names.length?names.map(n=>{const a=map[n],first=a[0],last=a[a.length-1],max=Math.max(...a.map(x=>x.kg));return `<div class="progressItem"><div class="progressHead"><span>${esc(n)}</span><span>${max} kg</span></div><div class="progressSub">İlk: ${first.kg}×${first.reps} · Son: ${last.kg}×${last.reps} · En yüksek: ${max} kg</div></div>`}).join(""):'<div class="empty">Gelişim için ağırlık kaydı ekle.</div>';
-drawChart(workouts.slice().reverse().map(w=>({date:w.date,vol:w.exercises.reduce((a,e)=>a+e.sets.reduce((x,s)=>x+s.kg*s.reps,0),0)})));
+ const map={};workouts.slice().sort((a,b)=>a.date.localeCompare(b.date)).forEach(w=>w.exercises.forEach(e=>{map[e.name]??=[];e.sets.forEach(s=>map[e.name].push({date:w.date,kg:num(s.kg),reps:num(s.reps)}))}));
+ const names=Object.keys(map);
+ $("prList").innerHTML=names.length?names.map(n=>{const best=map[n].reduce((a,b)=>(b.kg>a.kg||b.kg===a.kg&&b.reps>a.reps)?b:a);return `<div class="progressItem"><div class="progressHead"><span>${esc(n)}</span><span>${best.kg} kg × ${best.reps}</span></div><div class="progressSub">Kişisel en iyi</div></div>`}).join(""):'<div class="empty">Henüz rekor verisi yok.</div>';
+ $("progressList").innerHTML=names.length?names.map(n=>{const a=map[n],first=a[0],last=a[a.length-1],max=Math.max(...a.map(x=>x.kg)),vol=a.reduce((s,x)=>s+x.kg*x.reps,0);return `<div class="progressItem"><div class="progressHead"><span>${esc(n)}</span><span>${max} kg</span></div><div class="progressSub">İlk: ${first.kg}×${first.reps} · Son: ${last.kg}×${last.reps} · Toplam hacim: ${vol.toFixed(0)} kg</div></div>`}).join(""):'<div class="empty">Gelişim için ağırlık kaydı ekle.</div>';
+ drawChart(workouts.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(w=>({date:w.date,vol:w.exercises.reduce((a,e)=>a+e.sets.reduce((x,s)=>x+num(s.kg)*num(s.reps),0),0)})));
+ drawRunChart(runs.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(r=>({date:r.date,dist:num(r.distance)})));
 }
 function drawChart(data){
-const c=document.getElementById("chart"),ctx=c.getContext("2d"),w=c.clientWidth||900,h=220,dpr=devicePixelRatio||1;c.width=w*dpr;c.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);if(!data.length)return;
-const max=Math.max(...data.map(x=>x.vol),1),pad=28;ctx.strokeStyle="#d1d5db";for(let i=0;i<4;i++){const y=pad+(h-pad*1.5)*i/3;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-10,y);ctx.stroke()}
-ctx.strokeStyle="#111827";ctx.lineWidth=3;ctx.beginPath();data.forEach((p,i)=>{const x=pad+(w-pad-15)*i/Math.max(1,data.length-1),y=h-pad-(h-pad*1.6)*(p.vol/max);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();
+ const c=$("chart"),ctx=c.getContext("2d"),w=c.clientWidth||900,h=240,dpr=devicePixelRatio||1;c.width=w*dpr;c.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);if(!data.length)return;
+ const max=Math.max(...data.map(x=>x.vol),1),pad=28;
+ ctx.strokeStyle="#d1d5db";ctx.lineWidth=1;for(let i=0;i<4;i++){const y=pad+(h-pad*1.5)*i/3;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-10,y);ctx.stroke()}
+ ctx.strokeStyle="#111827";ctx.lineWidth=3;ctx.beginPath();data.forEach((p,i)=>{const x=pad+(w-pad-15)*i/Math.max(1,data.length-1),y=h-pad-(h-pad*1.6)*(p.vol/max);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();
 }
-date.value=today;runDate.value=today;bikeDate.value=today;swimDate.value=today;addExercise();renderDashboard();
+function drawRunChart(data){
+ const c=$("runChart"),ctx=c.getContext("2d"),w=c.clientWidth||900,h=240,dpr=devicePixelRatio||1;c.width=w*dpr;c.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);if(!data.length)return;
+ const max=Math.max(...data.map(x=>x.dist),1),pad=28;
+ ctx.strokeStyle="#d1d5db";ctx.lineWidth=1;for(let i=0;i<4;i++){const y=pad+(h-pad*1.5)*i/3;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-10,y);ctx.stroke()}
+ ctx.strokeStyle="#175cd3";ctx.lineWidth=3;ctx.beginPath();data.forEach((p,i)=>{const x=pad+(w-pad-15)*i/Math.max(1,data.length-1),y=h-pad-(h-pad*1.6)*(p.dist/max);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();
+}
+
+/* ARAÇLAR / YEDEK */
+function renderTools(){
+ $("dataSummary").innerHTML=`<div class="grid"><div class="stat"><b>${workouts.length}</b><span>Ağırlık</span></div><div class="stat"><b>${runs.length}</b><span>Koşu</span></div><div class="stat"><b>${bikes.length}</b><span>Bisiklet</span></div><div class="stat"><b>${swims.length}</b><span>Yüzme</span></div></div>`;
+}
+function exportData(){
+ const data={version:3,exportedAt:new Date().toISOString(),workouts,runs,bikes,swims};
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="spor-panelim-yedek-"+today+".json";a.click();URL.revokeObjectURL(url);
+}
+function importData(ev){
+ const file=ev.target.files?.[0];if(!file)return;const reader=new FileReader();
+ reader.onload=()=>{try{const d=JSON.parse(reader.result);if(!Array.isArray(d.workouts)||!Array.isArray(d.runs)||!Array.isArray(d.bikes)||!Array.isArray(d.swims))throw new Error();
+ if(!confirm("Mevcut kayıtların üzerine yedekten gelen kayıtlar yazılsın mı?"))return;
+ workouts=d.workouts;runs=d.runs;bikes=d.bikes;swims=d.swims;saveAll();renderDashboard();renderHistory();renderProgress();renderTools();alert("Yedek başarıyla yüklendi ✅");
+ }catch(e){alert("Yedek dosyası geçersiz.");}finally{ev.target.value=""}};
+ reader.readAsText(file);
+}
+function resetAllData(){
+ if(!confirm("TÜM kayıtlar silinecek. Emin misin?"))return;
+ if(!confirm("Son kez soruyorum: tüm spor kayıtlarını sil?"))return;
+ workouts=[];runs=[];bikes=[];swims=[];saveAll();renderDashboard();renderHistory();renderProgress();renderTools();alert("Tüm kayıtlar silindi.");
+}
+
+/* BAŞLANGIÇ VERİLERİ — DAHA ÖNCEKİ KAYITLAR */
+function seedData(){
+ const seeds=[
+ {id:2026082301,date:"2026-08-23",muscle:"Sırt + Biceps + Karın",note:"Kayıtlı antrenman",exercises:[
+  {name:"Lat Pulldown",sets:[{kg:70,reps:8},{kg:70,reps:6}]},{name:"Machine Wide Row",sets:[{kg:59,reps:7},{kg:59,reps:7}]},
+  {name:"Dar Tutuş Machine Row",sets:[{kg:64,reps:6},{kg:64,reps:6}]},{name:"Rope Pullover",sets:[{kg:60,reps:11},{kg:60,reps:10}]},
+  {name:"Cable Biceps Curl",sets:[{kg:60,reps:8},{kg:60,reps:8}]},{name:"Incline Dumbbell Curl",sets:[{kg:30,reps:6},{kg:30,reps:5}]},
+  {name:"Oturarak Hammer Curl",sets:[{kg:40,reps:10},{kg:35,reps:14}]},{name:"Cable Crunch",sets:[{kg:55,reps:12},{kg:55,reps:12}]}
+ ]},
+ {id:2026090101,date:"2026-09-01",muscle:"Göğüs + Omuz + Arka Kol",note:"1 Eylül 2026 antrenman kaydı",exercises:[
+  {name:"Machine Press",sets:[{kg:100,reps:8},{kg:100,reps:7}]},{name:"Incline Press",sets:[{kg:60,reps:5},{kg:60,reps:5}]},
+  {name:"Pec Deck Fly",sets:[{kg:69,reps:8},{kg:69,reps:6}]},{name:"Lateral Raise",sets:[{kg:12.5,reps:10},{kg:12.5,reps:10}]},
+  {name:"Cable Pushdown",sets:[{kg:65,reps:8},{kg:65,reps:6}]},{name:"One Arm",sets:[{kg:25,reps:11},{kg:25,reps:11}]}
+ ]}
+ ];
+ seeds.forEach(x=>{if(!workouts.some(w=>String(w.id)===String(x.id)))workouts.push(x)});
+ const run={id:2026090401,date:"2026-09-04",distance:10.07,duration:"01:01:14",calories:655,pace:"06:04",avgHr:"",maxHr:"",type:"Koşu",note:"4 Eylül 2026 koşu kaydı"};
+ if(!runs.some(r=>String(r.id)===String(run.id)))runs.push(run);
+ workouts.sort((a,b)=>b.date.localeCompare(a.date));runs.sort((a,b)=>b.date.localeCompare(a.date));saveAll();
+}
+
+/* İLK AÇILIŞ */
+$("date").value=today;$("runDate").value=today;$("bikeDate").value=today;$("swimDate").value=today;
+if(!editExercises.length)addExercise();
+seedData();
+renderDashboard();
+renderTools();
 </script>
 </body>
 </html>
