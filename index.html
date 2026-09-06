@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>Spor Panelim</title>
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--text:#111827;--muted:#6b7280;--line:#e5e7eb;--accent:#111827;--soft:#eef0f3;--danger:#dc2626;--good:#15803d}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text)}
+.app{max-width:900px;margin:auto;padding:20px 16px 100px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+h1{font-size:27px;margin:0 0 4px}.sub{color:var(--muted);font-size:14px}
+button{border:0;border-radius:12px;padding:11px 15px;font-weight:700;cursor:pointer;background:var(--accent);color:white}
+button.secondary{background:var(--soft);color:var(--text)}button.danger{background:#fee2e2;color:var(--danger)}
+.tabs{display:flex;gap:8px;background:var(--card);padding:6px;border-radius:15px;margin-bottom:16px;box-shadow:0 1px 4px #0000000d}
+.tab{flex:1;background:transparent;color:var(--muted);padding:10px}.tab.active{background:var(--accent);color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px #00000008}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:var(--soft);border-radius:14px;padding:13px}.stat b{font-size:22px;display:block}.stat span{font-size:12px;color:var(--muted)}
+label{font-size:12px;color:var(--muted);font-weight:700;display:block;margin:10px 0 5px}
+input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:11px;font-size:15px;background:#fff;color:var(--text)}
+.row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end}.exercise{border-top:1px solid var(--line);padding-top:13px;margin-top:13px}
+.exercise-head{display:flex;justify-content:space-between;align-items:center}.exercise-head h3{margin:0;font-size:16px}
+.sets{display:grid;gap:8px;margin-top:10px}.setrow{display:grid;grid-template-columns:35px 1fr 1fr 38px;gap:7px;align-items:center}.setno{font-size:12px;color:var(--muted);text-align:center}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.empty{text-align:center;color:var(--muted);padding:30px 10px}
+.workout-title{display:flex;justify-content:space-between;gap:10px}.workout-title h3{margin:0;font-size:17px}.date{color:var(--muted);font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:700}
+.badge{display:inline-block;background:var(--soft);padding:5px 8px;border-radius:8px;font-size:11px;color:var(--muted)}
+.progress-item{margin:14px 0}.progress-head{display:flex;justify-content:space-between;font-size:14px;font-weight:700}.progress-sub{font-size:12px;color:var(--muted);margin-top:3px}
+canvas{width:100%;height:220px;background:#fafafa;border-radius:12px;margin-top:10px}
+.hidden{display:none!important}
+@media(max-width:600px){.app{padding:16px 12px 80px}.grid{grid-template-columns:repeat(2,1fr)}.row{grid-template-columns:1fr 1fr}.row button{grid-column:1/-1}.setrow{grid-template-columns:28px 1fr 1fr 36px}h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div><h1>🏋️ Spor Panelim</h1><div class="sub">Antrenmanlarını kaydet, gelişimini takip et.</div></div><button onclick="showTab('add')">＋ Antrenman</button></header>
+
+<div class="tabs">
+<button class="tab active" id="t-dashboard" onclick="showTab('dashboard')">Özet</button>
+<button class="tab" id="t-add" onclick="showTab('add')">Antrenman Ekle</button>
+<button class="tab" id="t-history" onclick="showTab('history')">Geçmiş</button>
+<button class="tab" id="t-progress" onclick="showTab('progress')">Gelişim</button>
+</div>
+
+<section id="dashboard">
+<div class="grid">
+<div class="stat"><b id="statWorkouts">0</b><span>Antrenman</span></div>
+<div class="stat"><b id="statSets">0</b><span>Toplam set</span></div>
+<div class="stat"><b id="statExercises">0</b><span>Hareket</span></div>
+<div class="stat"><b id="statKg">0</b><span>Son toplam yük</span></div>
+</div>
+<div class="card" style="margin-top:14px"><h2 style="margin:0 0 8px;font-size:18px">Son antrenman</h2><div id="latest"></div></div>
+</section>
+
+<section id="add" class="hidden">
+<div class="card">
+<h2 style="margin-top:0">Yeni Antrenman</h2>
+<div class="row">
+<div><label>Tarih</label><input type="date" id="date"></div>
+<div><label>Bölge</label><input id="muscle" placeholder="Sırt + Biceps"></div>
+<div><label>Not</label><input id="note" placeholder="İyi geçti"></div>
+<button class="secondary" onclick="addExercise()">＋ Hareket</button>
+</div>
+<div id="exerciseList"></div>
+<div class="actions"><button onclick="saveWorkout()">💾 Kaydet</button><button class="secondary" onclick="resetForm()">Temizle</button></div>
+</div>
+</section>
+
+<section id="history" class="hidden"><div id="historyList"></div></section>
+
+<section id="progress" class="hidden">
+<div class="card"><h2 style="margin:0">Hareket gelişimi</h2><div class="sub">Aynı hareketin zaman içindeki en yüksek çalışma kilosu.</div><div id="progressList"></div></div>
+<div class="card"><h2 style="margin:0">Hacim grafiği</h2><canvas id="chart" width="800" height="220"></canvas></div>
+</section>
+</div>
+
+<script>
+const KEY="spor_panelim_v1";
+let workouts=JSON.parse(localStorage.getItem(KEY)||"[]");
+if(!workouts.length){
+workouts=[{id:1724371200000,date:"2026-08-23",muscle:"Sırt + Biceps + Karın",note:"23 Ağustos antrenman kaydı",
+exercises:[
+{name:"Lat Pulldown",sets:[{kg:70,reps:8},{kg:70,reps:6}]},
+{name:"Machine Wide Row",sets:[{kg:59,reps:7},{kg:59,reps:7}]},
+{name:"Dar Tutuş Machine Row",sets:[{kg:64,reps:6},{kg:64,reps:6}]},
+{name:"Rope Pullover",sets:[{kg:60,reps:11},{kg:60,reps:10}]},
+{name:"Cable Biceps Curl",sets:[{kg:60,reps:8},{kg:60,reps:8}]},
+{name:"Incline Dumbbell Curl",sets:[{kg:30,reps:6},{kg:30,reps:5}]},
+{name:"Oturarak Hammer Curl",sets:[{kg:40,reps:10},{kg:35,reps:14}]},
+{name:"Cable Crunch",sets:[{kg:55,reps:12},{kg:55,reps:12}]}
+]}]; save();}
+let editExercises=[];
+const today=new Date().toISOString().slice(0,10);
+document.getElementById("date").value=today;
+
+function save(){localStorage.setItem(KEY,JSON.stringify(workouts))}
+function showTab(tab){
+["dashboard","add","history","progress"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==tab));
+["dashboard","add","history","progress"].forEach(x=>document.getElementById("t-"+x).classList.toggle("active",x===tab));
+if(tab==="dashboard")renderDashboard(); if(tab==="history")renderHistory(); if(tab==="progress")renderProgress();
+}
+function addExercise(name="",sets=[{kg:"",reps:""}]){
+editExercises.push({name,sets}); renderExercises();
+}
+function renderExercises(){
+const box=document.getElementById("exerciseList"); box.innerHTML="";
+editExercises.forEach((ex,i)=>{
+const div=document.createElement("div");div.className="exercise";
+div.innerHTML=`<div class="exercise-head"><h3>Hareket ${i+1}</h3><button class="danger" onclick="removeExercise(${i})">Sil</button></div>
+<label>Hareket adı</label><input value="${esc(ex.name)}" placeholder="Örn. Lat Pulldown" oninput="editExercises[${i}].name=this.value">
+<div class="sets" id="sets-${i}"></div>
+<div class="actions"><button class="secondary" onclick="addSet(${i})">＋ Set</button></div>`;
+box.appendChild(div);renderSets(i);
+});
+}
+function renderSets(i){
+const box=document.getElementById("sets-"+i);box.innerHTML="";
+editExercises[i].sets.forEach((s,j)=>{
+const r=document.createElement("div");r.className="setrow";
+r.innerHTML=`<div class="setno">${j+1}</div><input type="number" step="0.5" placeholder="Kilo" value="${s.kg}" oninput="editExercises[${i}].sets[${j}].kg=this.value"><input type="number" placeholder="Tekrar" value="${s.reps}" oninput="editExercises[${i}].sets[${j}].reps=this.value"><button class="secondary" onclick="removeSet(${i},${j})">×</button>`;
+box.appendChild(r);
+});
+}
+function addSet(i){editExercises[i].sets.push({kg:"",reps:""});renderSets(i)}
+function removeSet(i,j){if(editExercises[i].sets.length>1)editExercises[i].sets.splice(j,1);renderSets(i)}
+function removeExercise(i){editExercises.splice(i,1);renderExercises()}
+function resetForm(){document.getElementById("muscle").value="";document.getElementById("note").value="";document.getElementById("date").value=today;editExercises=[];addExercise()}
+function saveWorkout(){
+const date=document.getElementById("date").value||today,muscle=document.getElementById("muscle").value.trim()||"Genel",note=document.getElementById("note").value.trim();
+const exercises=editExercises.map(e=>({name:e.name.trim(),sets:e.sets.filter(s=>s.kg!==""&&s.reps!=="").map(s=>({kg:Number(s.kg),reps:Number(s.reps)}))})).filter(e=>e.name&&e.sets.length);
+if(!exercises.length){alert("En az bir hareket ve set gir.");return}
+workouts.push({id:Date.now(),date,muscle,note,exercises});workouts.sort((a,b)=>b.date.localeCompare(a.date));save();resetForm();showTab("history");alert("Antrenman kaydedildi 💪");
+}
+function renderDashboard(){
+let sets=0,ex=0,kg=0;workouts.forEach(w=>w.exercises.forEach(e=>{ex++;e.sets.forEach(s=>{sets++;kg+=s.kg*s.reps})}));
+document.getElementById("statWorkouts").textContent=workouts.length;document.getElementById("statSets").textContent=sets;document.getElementById("statExercises").textContent=ex;document.getElementById("statKg").textContent=Math.round(kg).toLocaleString("tr-TR")+" kg";
+const l=document.getElementById("latest"); if(!workouts.length){l.innerHTML='<div class="empty">Henüz antrenman yok.</div>';return}
+const w=workouts[0];l.innerHTML=workoutHTML(w,false);
+}
+function workoutHTML(w,full=true){
+let rows=w.exercises.map(e=>`<tr><td><b>${esc(e.name)}</b></td><td>${e.sets.map(s=>`${s.kg} kg × ${s.reps}`).join("<br>")}</td></tr>`).join("");
+return `<div class="workout-title"><div><h3>${esc(w.muscle)}</h3><div class="date">${formatDate(w.date)}</div></div>${full?`<div class="actions" style="margin:0"><button class="secondary" onclick="copyWorkout(${w.id})">Kopyala</button><button class="danger" onclick="deleteWorkout(${w.id})">Sil</button></div>`:""}</div>
+<table><thead><tr><th>Hareket</th><th>Setler</th></tr></thead><tbody>${rows}</tbody></table>${w.note?`<div class="sub" style="margin-top:9px">📝 ${esc(w.note)}</div>`:""}`;
+}
+function renderHistory(){
+const box=document.getElementById("historyList"); if(!workouts.length){box.innerHTML='<div class="card empty">Henüz kayıt yok. İlk antrenmanını ekle.</div>';return}
+box.innerHTML=workouts.map(w=>`<div class="card">${workoutHTML(w,true)}</div>`).join("");
+}
+
+function copyWorkout(id){
+const w=workouts.find(x=>x.id===id); if(!w)return;
+document.getElementById("date").value=today;
+document.getElementById("muscle").value=w.muscle;
+document.getElementById("note").value="";
+editExercises=w.exercises.map(e=>({name:e.name,sets:e.sets.map(s=>({kg:s.kg,reps:s.reps}))}));
+renderExercises(); showTab("add");
+}
+
+function deleteWorkout(id){if(confirm("Bu antrenman silinsin mi?")){workouts=workouts.filter(w=>w.id!==id);save();renderHistory();renderDashboard();renderProgress()}}
+function renderProgress(){
+const map={};workouts.slice().reverse().forEach(w=>w.exercises.forEach(e=>{if(!map[e.name])map[e.name]=[];e.sets.forEach(s=>map[e.name].push({date:w.date,kg:s.kg,reps:s.reps}))}));
+const box=document.getElementById("progressList"),names=Object.keys(map);
+if(!names.length){box.innerHTML='<div class="empty">Gelişim verisi için antrenman kaydet.</div>';drawChart([]);return}
+box.innerHTML=names.map(n=>{
+const arr=map[n],max=Math.max(...arr.map(x=>x.kg)),last=arr[arr.length-1],first=arr[0],delta=max-(first.kg||0);
+return `<div class="progress-item"><div class="progress-head"><span>${esc(n)}</span><span>${max} kg</span></div><div class="progress-sub">İlk: ${first.kg} kg × ${first.reps} · Son: ${last.kg} kg × ${last.reps} · En yüksek: ${max} kg</div></div>`;
+}).join("");
+const volumes=workouts.slice().reverse().map(w=>({date:w.date,vol:w.exercises.reduce((a,e)=>a+e.sets.reduce((x,s)=>x+s.kg*s.reps,0),0)}));drawChart(volumes);
+}
+function drawChart(data){
+const c=document.getElementById("chart"),ctx=c.getContext("2d"),dpr=window.devicePixelRatio||1,w=c.clientWidth||800,h=220;c.width=w*dpr;c.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);
+if(!data.length)return;const max=Math.max(...data.map(x=>x.vol),1),pad=35;ctx.strokeStyle="#d1d5db";ctx.lineWidth=1;for(let i=0;i<4;i++){let y=pad+(h-pad*1.5)*i/3;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-10,y);ctx.stroke()}
+ctx.strokeStyle="#111827";ctx.lineWidth=3;ctx.beginPath();data.forEach((p,i)=>{let x=pad+(w-pad-15)*i/Math.max(data.length-1,1),y=h-pad-(h-pad*1.6)*(p.vol/max);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();
+}
+function formatDate(s){return new Date(s+"T12:00:00").toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"})}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+resetForm();
+</script>
+</body>
+</html>
