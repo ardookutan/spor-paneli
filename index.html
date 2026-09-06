@@ -70,7 +70,7 @@ canvas{width:100%;height:220px;background:#fafafa;border-radius:12px;margin-top:
 <section id="history" class="hidden"><div id="historyList"></div></section>
 
 <section id="progress" class="hidden">
-<div class="card"><h2 style="margin:0">Hareket gelişimi</h2><div class="sub">Aynı hareketin zaman içindeki en yüksek çalışma kilosu.</div><div id="progressList"></div></div>
+<div class="card"><h2 style="margin:0">Hareket gelişimi</h2><div class="sub">Aynı hareketin zaman içindeki en yüksek çalışma kilosu.</div><div id="progressList"></div></div><div class="card"><h2 style="margin:0">🏆 Kişisel rekorlar</h2><div class="sub">Kayıtlı setlerindeki en yüksek kilolar.</div><div id="prList"></div></div>
 <div class="card"><h2 style="margin:0">Hacim grafiği</h2><canvas id="chart" width="800" height="220"></canvas></div>
 </section>
 </div>
@@ -79,7 +79,8 @@ canvas{width:100%;height:220px;background:#fafafa;border-radius:12px;margin-top:
 const KEY="spor_panelim_v1";
 let workouts=JSON.parse(localStorage.getItem(KEY)||"[]");
 if(!workouts.length){
-workouts=[{id:1724371200000,date:"2026-08-23",muscle:"Sırt + Biceps + Karın",note:"23 Ağustos antrenman kaydı",
+workouts=[
+{id:2026082301,date:"2026-08-23",muscle:"Sırt + Biceps + Karın",note:"Kayıtlı antrenman",
 exercises:[
 {name:"Lat Pulldown",sets:[{kg:70,reps:8},{kg:70,reps:6}]},
 {name:"Machine Wide Row",sets:[{kg:59,reps:7},{kg:59,reps:7}]},
@@ -89,11 +90,29 @@ exercises:[
 {name:"Incline Dumbbell Curl",sets:[{kg:30,reps:6},{kg:30,reps:5}]},
 {name:"Oturarak Hammer Curl",sets:[{kg:40,reps:10},{kg:35,reps:14}]},
 {name:"Cable Crunch",sets:[{kg:55,reps:12},{kg:55,reps:12}]}
-]}]; save();}
-let editExercises=[];
-const today=new Date().toISOString().slice(0,10);
-document.getElementById("date").value=today;
-
+]},
+{id:2026081301,date:"2026-08-13",muscle:"Göğüs + Omuz + Arka Kol",note:"Kayıtlı antrenman",
+exercises:[
+{name:"Machine Press",sets:[{kg:100,reps:8},{kg:100,reps:7}]},
+{name:"Incline Press",sets:[{kg:60,reps:5},{kg:60,reps:5}]},
+{name:"Fly",sets:[{kg:69,reps:8},{kg:69,reps:6}]},
+{name:"Lateral Raise",sets:[{kg:12.5,reps:10},{kg:12.5,reps:10}]},
+{name:"Pushdown",sets:[{kg:65,reps:8},{kg:65,reps:6}]},
+{name:"One Arm",sets:[{kg:25,reps:11},{kg:25,reps:11}]}
+]},
+{id:2026081001,date:"2026-08-10",muscle:"Bacak + Karın",note:"Kaydı net olan setler",
+exercises:[
+{name:"Leg Extension",sets:[{kg:40,reps:10},{kg:40,reps:10}]},
+{name:"Calf",sets:[{kg:40,reps:10},{kg:40,reps:10}]}
+]},
+{id:2026080801,date:"2026-08-08",muscle:"Göğüs + Karın",note:"Kayıtlı antrenman",
+exercises:[
+{name:"Pec Deck / Fly",sets:[{kg:69,reps:8},{kg:69,reps:8}]},
+{name:"Cable Crunch",sets:[{kg:55,reps:10}]}
+]}
+];
+workouts.sort((a,b)=>b.date.localeCompare(a.date)); save();
+}
 function save(){localStorage.setItem(KEY,JSON.stringify(workouts))}
 function showTab(tab){
 ["dashboard","add","history","progress"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==tab));
@@ -163,8 +182,13 @@ const map={};workouts.slice().reverse().forEach(w=>w.exercises.forEach(e=>{if(!m
 const box=document.getElementById("progressList"),names=Object.keys(map);
 if(!names.length){box.innerHTML='<div class="empty">Gelişim verisi için antrenman kaydet.</div>';drawChart([]);return}
 box.innerHTML=names.map(n=>{
-const arr=map[n],max=Math.max(...arr.map(x=>x.kg)),last=arr[arr.length-1],first=arr[0],delta=max-(first.kg||0);
+const arr=map[n],max=Math.max(...arr.map(x=>x.kg)),last=arr[arr.length-1],first=arr[0];
 return `<div class="progress-item"><div class="progress-head"><span>${esc(n)}</span><span>${max} kg</span></div><div class="progress-sub">İlk: ${first.kg} kg × ${first.reps} · Son: ${last.kg} kg × ${last.reps} · En yüksek: ${max} kg</div></div>`;
+}).join("");
+const pr=document.getElementById("prList");
+pr.innerHTML=names.map(n=>{
+const arr=map[n],best=arr.reduce((a,b)=>(b.kg>a.kg||b.kg===a.kg&&b.reps>a.reps)?b:a);
+return `<div class="progress-item"><div class="progress-head"><span>${esc(n)}</span><span>${best.kg} kg × ${best.reps}</span></div></div>`;
 }).join("");
 const volumes=workouts.slice().reverse().map(w=>({date:w.date,vol:w.exercises.reduce((a,e)=>a+e.sets.reduce((x,s)=>x+s.kg*s.reps,0),0)}));drawChart(volumes);
 }
