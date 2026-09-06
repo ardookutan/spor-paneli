@@ -113,6 +113,21 @@ exercises:[
 ];
 workouts.sort((a,b)=>b.date.localeCompare(a.date)); save();
 }
+
+if(!workouts.some(w=>w.id===2026090101)){
+workouts.push({
+id:2026090101,date:"2026-09-01",muscle:"Göğüs + Omuz + Arka Kol",note:"1 Eylül 2026 antrenman kaydı",
+exercises:[
+{name:"Machine Press",sets:[{kg:100,reps:8},{kg:100,reps:7}]},
+{name:"Incline Press",sets:[{kg:60,reps:5},{kg:60,reps:5}]},
+{name:"Pec Deck Fly",sets:[{kg:69,reps:8},{kg:69,reps:6}]},
+{name:"Lateral Raise",sets:[{kg:12.5,reps:10},{kg:12.5,reps:10}]},
+{name:"Cable Pushdown",sets:[{kg:65,reps:8},{kg:65,reps:6}]},
+{name:"One Arm",sets:[{kg:25,reps:11},{kg:25,reps:11}]}
+]});
+workouts.sort((a,b)=>b.date.localeCompare(a.date)); save();
+}
+
 function save(){localStorage.setItem(KEY,JSON.stringify(workouts))}
 function showTab(tab){
 ["dashboard","add","history","progress"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==tab));
